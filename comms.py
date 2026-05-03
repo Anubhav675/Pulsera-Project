@@ -34,7 +34,6 @@ class CommsManager:
         except Exception as e:
             print("Parse error:", e)
 
-    # ===== WIFI =====
     def connect_wifi(self):
         self._wlan.active(True)
 
@@ -55,7 +54,6 @@ class CommsManager:
         print("WiFi Connected:", self._wlan.ifconfig())
         return True
 
-    # ===== MQTT CONNECT =====
     def connect_mqtt(self):
         self._client = MQTTClient(self._mac, config.MQTT_BROKER, port=config.MQTT_PORT)
         self._client.set_callback(self._callback)
@@ -67,7 +65,6 @@ class CommsManager:
         print("MQTT Connected")
         return True
 
-    # ===== WAIT FOR RESPONSE =====
     def _wait_msg(self, timeout=5000):
         start = time.ticks_ms()
 
@@ -83,7 +80,6 @@ class CommsManager:
 
         return None
 
-    # ===== REGISTER DEVICE =====
     def register_device(self):
         payload = {
             "mac": self._mac,
@@ -96,7 +92,6 @@ class CommsManager:
         res = self._wait_msg()
         print("Device response:", res)
 
-    # ===== REGISTER PATIENT =====
     def register_patient(self):
         payload = {
             "mac": self._mac,
@@ -114,7 +109,6 @@ class CommsManager:
         else:
             print("Patient registration failed")
 
-    # ===== SAVE RECORD =====
     def save_to_db(self, hr, rmssd, sdnn, pns=None, sns=None, ppi=None):
         payload = {
             "mac": self._mac,
@@ -139,7 +133,6 @@ class CommsManager:
         res = self._wait_msg()
         print("DB response:", res)
 
-    # ===== KUBIOS =====
     def request_analysis(self, rris):
         payload = {
             "mac": self._mac,
@@ -154,7 +147,6 @@ class CommsManager:
         res = self._wait_msg(20000)
         return res
 
-    # ===== INIT ALL =====
     def setup(self):
         if not self.connect_wifi():
             return False
