@@ -1,4 +1,23 @@
-# Processing Constants 
+# Hardware Pins
+OLED_SCL_PIN = 15
+OLED_SDA_PIN = 14
+ROT_A_PIN = 10
+ROT_B_PIN = 11
+ENCODER_BUTTON_PIN = 12
+LED_PIN = 22
+ADC_PIN = 26
+
+# Project Info (Level 4 requirement)
+PROJECT_NAME = "PULSERA_V1"
+PATIENT_NAME = "Jerry"
+OLED_WIDTH = 128
+PATIENT_ID = 92
+OLED_HEIGHT = 64
+
+# Menu items
+MENU_ITEMS = ["Measure HR", "Basic HRV", "Kubios", "History"]
+
+# Processing Constants
 SAMPLE_RATE_HZ = 250
 SMA_WINDOW = 10
 ADAPTIVE_THRESHOLD_OFFSET = 600
@@ -7,4 +26,18 @@ HYSTERESIS_THRESHOLD = 50
 GRAPH_Y_OFFSET = 60
 GRAPH_MAX_HEIGHT = 45
 NOISE_FLOOR_RANGE = 1200
+
+# Network Settings (Level 2 requirement)
+WIFI_SSID = "2G"
+WIFI_PASSWORD = "nepal12345"
+MQTT_BROKER = "192.168.9.253"
+MQTT_PORT = 5000  # FIXED: Correct Lab Port[cite: 2]
+
+# MQTT Topics
+TOPIC_DEVICE_ADD = b"database/devices/add"
+TOPIC_PATIENT_ADD = b"database/patients/add"
+TOPIC_RECORD_ADD = b"database/records/add"
+TOPIC_KUBIOS_REQ = b"kubios/request"
+TOPIC_KUBIOS_RES = b"kubios/response"
+
 
