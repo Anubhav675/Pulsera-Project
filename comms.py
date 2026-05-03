@@ -15,7 +15,6 @@ class CommsManager:
         self._mac = self._get_mac()
         self._patient_id = None
 
-    # ===== GET MAC =====
     def _get_mac(self):
         self._wlan.active(True)
         return ubinascii.hexlify(self._wlan.config("mac")).decode().upper()
@@ -23,7 +22,6 @@ class CommsManager:
     def get_mac(self):
         return self._mac
 
-    # ===== MQTT CALLBACK =====
     def _callback(self, topic, msg):
         print("\n=== MQTT RECEIVED ===")
         print("TOPIC:", topic)
