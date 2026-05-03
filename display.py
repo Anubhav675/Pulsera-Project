@@ -37,7 +37,7 @@ class Display:
             l_min, l_max = min(self._wave_history), max(self._wave_history)
             d_range = l_max - l_min
             
-            # Prevent Division by Zero and apply Noise Floor Protection[cite: 4]
+            
             if d_range < config.NOISE_FLOOR_RANGE or d_range == 0: 
                 d_range = 4000
                 l_min = raw_val - 2000
@@ -45,7 +45,7 @@ class Display:
             self._oled.fill(0)
             self._oled.text(f"BPM: {bpm}", 0, 0, 1)
             
-            # Drawing the actual lines (where line 54 usually is)
+            # Drawing the actual lines
             for i in range(len(self._wave_history) - 1):
                 y1 = 63 - int((self._wave_history[i] - l_min) * 40 / d_range)
                 y2 = 63 - int((self._wave_history[i+1] - l_min) * 40 / d_range)

@@ -7,7 +7,7 @@ ENCODER_BUTTON_PIN = 12
 LED_PIN = 22
 ADC_PIN = 26
 
-# Project Info (Level 4 requirement)
+# Project Info 
 PROJECT_NAME = "PULSERA_V1"
 PATIENT_NAME = "Jerry"
 OLED_WIDTH = 128
@@ -27,11 +27,11 @@ GRAPH_Y_OFFSET = 60
 GRAPH_MAX_HEIGHT = 45
 NOISE_FLOOR_RANGE = 1200
 
-# Network Settings (Level 2 requirement)
+# Network Settings 
 WIFI_SSID = "2G"
 WIFI_PASSWORD = "nepal12345"
 MQTT_BROKER = "192.168.9.253"
-MQTT_PORT = 5000  # FIXED: Correct Lab Port[cite: 2]
+MQTT_PORT = 5000  
 
 # MQTT Topics
 TOPIC_DEVICE_ADD = b"database/devices/add"

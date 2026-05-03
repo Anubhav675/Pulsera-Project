@@ -6,9 +6,6 @@ class Hardware:
     def __init__(self):
         # Setup I2C for OLED
         self.i2c = I2C(1, scl=Pin(config.OLED_SCL_PIN), sda=Pin(config.OLED_SDA_PIN))
-        
-        # This is where your error was happening - 
-        # Ensure config.OLED_WIDTH exists in config.py
         self.oled = ssd1306.SSD1306_I2C(config.OLED_WIDTH, config.OLED_HEIGHT, self.i2c)
         
         # Setup Rotary Encoder
