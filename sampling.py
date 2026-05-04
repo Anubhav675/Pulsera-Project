@@ -6,7 +6,6 @@ from machine import ADC, Pin
 class PulseSampler:
     def __init__(self):
         self._adc = ADC(Pin(config.ADC_PIN))
-        # Increased to 500 to prevent data loss during OLED updates
         self._fifo = Fifo(500) 
         self._timer = None
 

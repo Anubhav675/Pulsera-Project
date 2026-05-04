@@ -27,7 +27,6 @@ def main():
     time.sleep(3)
 
     display.show_message("WiFi...")
-
     net_ok = net.setup()
 
     if net_ok:
@@ -43,12 +42,22 @@ def main():
 
     # --- START ---
     state = MENU
+    locked_index = menu.selected_index()
+
+    history_data = []
+    history_index = 0
+
     display.show_menu(config.MENU_ITEMS, menu.selected_index())
     last_ui_update = 0
 
     # --- LOOP ---
     while True:
         now = time.ticks_ms()
+
+        
+        if state in (LIVE_HR, HRV_MEASURING, HRV_DONE):
+            hw.encoder_changed = False
+            hw.encoder_index = locked_index
 
         # ===== MENU =====
         if state == MENU:
@@ -57,12 +66,19 @@ def main():
 
             if menu.was_pressed():
                 mode = menu.selected_item()
+                locked_index = menu.selected_index()
 
                 # ---- HISTORY ----
                 if mode == "History":
+                    history_data = storage.load_history()
+                    history_index = 0
+
+                    
+                    hw.encoder_index = 0
+
                     state = HISTORY_VIEW
 
-                # ---- KUBIOS (CHECK WIFI FIRST) ----
+                # ---- KUBIOS ----
                 elif mode == "Kubios":
                     if not net._wlan.isconnected():
                         display.show_message("No WiFi!")
@@ -130,13 +146,10 @@ def main():
                     try:
                         rris = processor.get_rris()
 
-                        #  FILTER 
                         clean_rris = []
                         for x in rris:
                             if 500 <= x <= 1000:
                                 clean_rris.append(x)
-
-                        print("Filtered RRIs:", clean_rris)
 
                         if len(clean_rris) < 10:
                             display.show_message("Bad Data")
@@ -161,7 +174,6 @@ def main():
 
                         display.show_kubios_results(hr, rm, sd, pns, sns)
 
-                        # save only if wifi still alive
                         if net._wlan.isconnected():
                             net.save_to_db(hr, rm, sd, pns, sns, ppi)
 
@@ -176,17 +188,17 @@ def main():
                     bpm = processor.average_bpm()
                     rm = processor.rmssd()
                     sd = processor.sdnn()
+                    ppi = processor.mean_ppi()
 
                     storage.save_result(bpm, rm, sd)
 
-                    
                     if net._wlan.isconnected():
                         try:
                             net.save_to_db(bpm, rm, sd)
                         except:
                             print("DB skipped")
 
-                    display.show_hrv_results(bpm, rm, sd)
+                    display.show_hrv_results(bpm, ppi, rm, sd)
 
                 state = HRV_DONE
 
@@ -198,21 +210,18 @@ def main():
 
         # ===== HISTORY =====
         elif state == HISTORY_VIEW:
-            history_data = storage.load_history()
-            total_options = len(history_data) + 1
+            total_options = len(history_data) + 1  
 
-            if menu.update() or last_ui_update == 0:
-                idx = menu.selected_index() % total_options
-                display.show_history_list(history_data, idx)
-                last_ui_update = now
+            if menu.update():
+                history_index = menu.selected_index() % total_options
+                display.show_history_list(history_data, history_index)
 
             if menu.was_pressed():
-                idx = menu.selected_index() % total_options
-
-                if idx == 0:
+                if history_index == 0:
                     state = MENU
+                    display.show_menu(config.MENU_ITEMS, menu.selected_index())
                 else:
-                    sel = idx - 1
+                    sel = history_index - 1
                     display.show_history_detail(
                         history_data[sel], sel, len(history_data)
                     )
@@ -222,7 +231,7 @@ def main():
         elif state == HISTORY_DETAIL:
             if menu.was_pressed():
                 state = HISTORY_VIEW
-                last_ui_update = 0
+                display.show_history_list(history_data, history_index)
 
         time.sleep_ms(2)
 

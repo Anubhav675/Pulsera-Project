@@ -27,7 +27,7 @@ class HeartRateProcessor:
         if len(self._threshold_history) > 100: self._threshold_history.pop(0)
         avg = sum(self._threshold_history) / len(self._threshold_history)
         
-        # The adaptive threshold is now much higher above the average
+        # The adaptive threshold 
         threshold = avg + config.ADAPTIVE_THRESHOLD_OFFSET 
         
         if filtered > threshold and not self._inside_pulse:

@@ -64,14 +64,14 @@ class Display:
         self._oled.fill_rect(5, 50, int(progress * 118), 10, 1)
         self._oled.show()
 
-    def show_hrv_results(self, bpm, rmssd, sdnn):
+    def show_hrv_results(self, bpm, ppi, rmssd, sdnn):
         self._oled.fill(0)
         self._oled.text("HRV RESULTS", 20, 0, 1)
         self._oled.hline(0, 10, 128, 1)
-        self._oled.text(f"BPM:   {int(bpm)}", 0, 18, 1)
-        self._oled.text(f"RMSSD: {int(rmssd)}ms", 0, 32, 1)
-        self._oled.text(f"SDNN:  {int(sdnn)}ms", 0, 46, 1)
-        self._oled.text("PRESS TO MENU", 10, 56, 1)
+        self._oled.text(f"HR:   {int(bpm)} bpm", 0, 16, 1)
+        self._oled.text(f"PPI:  {int(ppi)} ms", 0, 28, 1)
+        self._oled.text(f"RMSSD:{int(rmssd)} ms", 0, 40, 1)
+        self._oled.text(f"SDNN: {int(sdnn)} ms", 0, 52, 1)
         self._oled.show()
 
     def show_kubios_results(self, hr, rmssd, sdnn, pns, sns):
