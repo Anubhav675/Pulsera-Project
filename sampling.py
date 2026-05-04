@@ -30,3 +30,4 @@ class PulseSampler:
     def get_sample(self): 
         """Retrieves the oldest sample from the FIFO"""
         return self._fifo.get()
+

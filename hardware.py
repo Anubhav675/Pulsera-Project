@@ -73,3 +73,4 @@ class Hardware:
             self._btn_pressed = False
             return True
         return False
+

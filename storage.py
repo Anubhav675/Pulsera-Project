@@ -37,3 +37,4 @@ def load_history():
             return ujson.load(f)
     except:
         return []
+

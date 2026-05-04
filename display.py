@@ -111,3 +111,4 @@ class Display:
         self._oled.fill(0)
         self._oled.text(text, (self.width - len(text)*8)//2, 30, 1)
         self._oled.show()
+

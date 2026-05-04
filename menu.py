@@ -15,3 +15,4 @@ class EncoderMenu:
 
     def was_pressed(self):
         return self.hw.was_pressed()
+

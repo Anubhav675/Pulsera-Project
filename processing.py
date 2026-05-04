@@ -63,3 +63,4 @@ class HeartRateProcessor:
         if len(self._ppi_values) < 2: return 0
         diffs = [(self._ppi_values[i+1] - self._ppi_values[i])**2 for i in range(len(self._ppi_values)-1)]
         return int(math.sqrt(sum(diffs) / len(diffs)))
+

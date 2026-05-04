@@ -9,7 +9,7 @@ ADC_PIN = 26
 
 # Project Info 
 PROJECT_NAME = "PULSERA_V1"
-PATIENT_NAME = "Jerry"
+PATIENT_NAME = "Test"
 OLED_WIDTH = 128
 PATIENT_ID = 92
 OLED_HEIGHT = 64
@@ -39,6 +39,3 @@ TOPIC_PATIENT_ADD = b"database/patients/add"
 TOPIC_RECORD_ADD = b"database/records/add"
 TOPIC_KUBIOS_REQ = b"kubios/request"
 TOPIC_KUBIOS_RES = b"kubios/response"
-
-
-

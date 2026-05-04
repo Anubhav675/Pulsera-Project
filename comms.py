@@ -102,7 +102,12 @@ class CommsManager:
         print("Registering patient...")
 
         res = self._wait_msg()
+        print("Patient response: ", res)
 
+        if not res:
+            print("no response from server")
+            return
+        
         if res and res.get("message") == "OK":
             self._patient_id = res.get("data")
             print("Patient ID:", self._patient_id)
@@ -158,3 +163,4 @@ class CommsManager:
         self.register_device()
 
         return True
+
