@@ -75,6 +75,8 @@ def main():
 
                     
                     hw.encoder_index = 0
+                    hw.encoder_changed = True
+                    hw._btn_pressed = False
 
                     state = HISTORY_VIEW
 
