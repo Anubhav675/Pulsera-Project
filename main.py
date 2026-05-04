@@ -17,7 +17,7 @@ def main():
     
     hw = Hardware()
     display = Display(hw.oled)
-    menu = EncoderMenu(hw.rot_a, hw.rot_b, hw.encoder_button)
+    menu = EncoderMenu(hw)
     sampler = PulseSampler()
     processor = HeartRateProcessor()
     net = CommsManager()
