@@ -45,7 +45,7 @@ class Display:
             self._oled.fill(0)
             self._oled.text(f"BPM: {bpm}", 0, 0, 1)
             
-            # Drawing the actual lines
+            
             for i in range(len(self._wave_history) - 1):
                 y1 = 63 - int((self._wave_history[i] - l_min) * 40 / d_range)
                 y2 = 63 - int((self._wave_history[i+1] - l_min) * 40 / d_range)
@@ -53,7 +53,7 @@ class Display:
             
             self._oled.show()
         except:
-            pass # Ignore glitches during rapid drawing to prevent crashing
+            pass 
 
     def show_collecting(self, time_val, mode):
         self._oled.fill(0)

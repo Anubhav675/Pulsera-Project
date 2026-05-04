@@ -210,7 +210,7 @@ def main():
 
         # ===== HISTORY =====
         elif state == HISTORY_VIEW:
-            total_options = len(history_data) + 1  
+            total_options = len(history_data) + 1  # BACK + records
 
             if menu.update():
                 history_index = menu.selected_index() % total_options
