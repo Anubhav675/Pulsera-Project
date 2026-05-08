@@ -19,8 +19,8 @@ def save_result(bpm, rmssd, sdnn):
 
     data.insert(0, new_entry)
 
-    if len(data) > 10:
-        data = data[:10]
+    if len(data) > 5:
+        data = data[:5]
 
     try:
         with open(FILENAME, "w") as f:
